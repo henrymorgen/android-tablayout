@@ -34,7 +34,15 @@ public class TabLayoutActivity extends AppCompatActivity {
         NavigationView navigationView =
                 (NavigationView) findViewById(R.id.nv_main_navigation);
         if (navigationView != null) {
-            setupDrawerContent(navigationView);
+            navigationView.setNavigationItemSelectedListener(
+                    new NavigationView.OnNavigationItemSelectedListener() {
+                        @Override
+                        public boolean onNavigationItemSelected(MenuItem menuItem) {
+                            menuItem.setChecked(true);
+                            mDrawerLayout.closeDrawers();
+                            return true;
+                        }
+                    });
         }
         initViewPager();
 
@@ -54,17 +62,7 @@ public class TabLayoutActivity extends AppCompatActivity {
         }
         return super.onOptionsItemSelected(item);
     }
-    private void setupDrawerContent(NavigationView navigationView) {
-        navigationView.setNavigationItemSelectedListener(
-                new NavigationView.OnNavigationItemSelectedListener() {
-                    @Override
-                    public boolean onNavigationItemSelected(MenuItem menuItem) {
-                        menuItem.setChecked(true);
-                        mDrawerLayout.closeDrawers();
-                        return true;
-                    }
-                });
-    }
+
 
     private void initViewPager() {
         mTabLayout = (TabLayout) findViewById(R.id.tabs);
